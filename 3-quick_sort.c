@@ -31,14 +31,14 @@ void quicksorting(int *array, int mini, int maxi, int size)
 
 	if (mini < maxi)
 	{
-		index = Lomuto(array, mini, maxi, size);
+		pos = Lomuto(array, mini, maxi, size);
 		quicksorting(array, mini, pos - 1, size);
 		quicksorting(array, pos + 1, maxi, size);
 	}
 }
 
 /**
- * Lomuto - a function that implements 
+ * Lomuto - a function that implements
  * the Lomuto partition scheme
  * @array: array
  * @mini: the beginning of the array
@@ -59,7 +59,7 @@ int Lomuto(int *array, int mini, int maxi, int size)
 	{
 		if (array[loop2] <= pivot)
 		{
-			if loop1 != loop2
+			if (loop1 != loop2)
 			{
 				swapy(array, loop1, loop2);
 				print_array(array, size);
@@ -70,7 +70,7 @@ int Lomuto(int *array, int mini, int maxi, int size)
 	if (array[loop1] != array[maxi])
 	{
 		swapy(array, loop1, maxi);
-		print_array(array, size)
+		print_array(array, size);
 	}
 	return (loop1);
 }
