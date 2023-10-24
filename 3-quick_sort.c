@@ -1,42 +1,21 @@
 #include "sort.h"
 #include <stdio.h>
-
 /**
- * quick_sort - a function that sorts an array of integers
- * in ascending order using the Quick sort algorithm
- * @array: the array to be sorted
- * @size: the size of the array to be sorted
+ * swapy - a function that swaps
+ * the position of 2 elements
+ * @x: first element
+ * @y: second element
  * Return: void
  */
 
-void quick_sort(int *array, size_t size)
+void swapy(int *x, int *y)
 {
-	if (size <= 1 || array == NULL)
-		return;
-	quicksorting(array, 0, size - 1, size);
+	int temp;
+
+	temp = *x;
+	*x = *y;
+	*y = temp;
 }
-
-/**
- * quicksorting - a function that sorts the array
- * @array: the array to be sorted
- * @mini: the beginning of the array
- * @maxi: the end of the array
- * @size: the size of the array to be sorted
- * Return: void
- */
-
-void quicksorting(int *array, int mini, int maxi, int size)
-{
-	int pos = 0;
-
-	if (mini < maxi)
-	{
-		pos = Lomuto(array, mini, maxi, size);
-		quicksorting(array, mini, pos - 1, size);
-		quicksorting(array, pos + 1, maxi, size);
-	}
-}
-
 /**
  * Lomuto - a function that implements
  * the Lomuto partition scheme
@@ -61,7 +40,7 @@ int Lomuto(int *array, int mini, int maxi, int size)
 		{
 			if (loop1 != loop2)
 			{
-				swapy(array, loop1, loop2);
+				swapy(&array[loop1], &array[loop2]);
 				print_array(array, size);
 			}
 			loop1++;
@@ -69,25 +48,44 @@ int Lomuto(int *array, int mini, int maxi, int size)
 	}
 	if (array[loop1] != array[maxi])
 	{
-		swapy(array, loop1, maxi);
+		swapy(&array[loop1], &array[maxi]);
 		print_array(array, size);
 	}
 	return (loop1);
 }
 
 /**
- * swapy - a function that swaps
- * the position of 2 elements
- * @x: first element
- * @y: second element
+ * quicksorting - a function that sorts the array
+ * @array: the array to be sorted
+ * @mini: the beginning of the array
+ * @maxi: the end of the array
+ * @size: the size of the array to be sorted
  * Return: void
  */
 
-void swapy(int *x, int *y)
+void quicksorting(int *array, int mini, int maxi, int size)
 {
-	int temp;
+	int pos = 0;
 
-	temp = *x;
-	*x = *y;
-	*y = temp;
+	if (mini < maxi)
+	{
+		pos = Lomuto(array, mini, maxi, size);
+		quicksorting(array, mini, pos - 1, size);
+		quicksorting(array, pos + 1, maxi, size);
+	}
+}
+
+/**
+ * quick_sort - a function that sorts an array of integers
+ * in ascending order using the Quick sort algorithm
+ * @array: the array to be sorted
+ * @size: the size of the array to be sorted
+ * Return: void
+ */
+
+void quick_sort(int *array, size_t size)
+{
+	if (size <= 1 || array == NULL)
+		return;
+	quicksorting(array, 0, size - 1, size);
 }
